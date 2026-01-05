@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .qr-card { max-width: 520px; margin: 40px auto; background:#fff; padding:22px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.08); text-align:left; }
+    .field { margin-bottom:12px; }
+    .field label { display:block; font-weight:600; margin-bottom:6px; }
+    .field input[type=text], .field textarea { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #ddd; }
+    .row { display:flex; gap:10px; align-items:center; }
+    .btn { background:#1e88e5; color:#fff; padding:10px 14px; border-radius:8px; text-decoration:none; border:none; cursor:pointer; }
+    .small { font-size:0.9rem; color:#666; }
+    img.qr { margin-top:18px; width:260px; height:260px; object-fit:contain; border-radius:8px; border:1px solid #eee; display:block; margin-left:auto; margin-right:auto; }
+    .hint { font-size:0.88rem; color:#444; margin-top:6px; }
+  </style>
+</head>
+<body>
+  <div class="qr-card">
+    <h2>QR Code Generator</h2>
+    <p class="small">Choose action type — scan will immediately perform it on supported devices.</p>
+
+    <form method="POST">
+      <div class="field">
+        <label>Type</label>
+        <div class="row">
+          <label><input type="radio" name="mode" value="text" checked> Plain text / URL</label>
+          <label><input type="radio" name="mode" value="call"> Call (phone)</label>
+          <label><input type="radio" name="mode" value="whatsapp"> WhatsApp</label>
+        </div>
+      </div>
+
+      <div class="field" id="text_field">
+        <label>Text / URL</label>
+        <input type="text" name="text" placeholder="Any text or URL (e.g. https://example.com)">
+      </div>
+
+      <div class="field" id="number_field" style="display:none;">
+        <label>Phone number (include country code)</label>
+        <input type="text" name="number" placeholder="+919876543210 or 919876543210">
+        <div class="hint">For Call: scanner will prompt to call this number.</div>
+      </div>
+
+      <div class="field" id="wa_field" style="display:none;">
+        <label>WhatsApp number (with country code) and optional message</label>
+        <input type="text" name="number" placeholder="919876543210 (no + required)">
+        <textarea name="wa_message" rows="2" placeholder="Optional message that will appear in chat"></textarea>
+        <div class="hint">WhatsApp link uses wa.me format; message will be pre-filled.</div>
+      </div>
+
+      <div style="text-align:center; margin-top:10px;">
+        <button class="btn" type="submit">Generate QR</button>
+      </div>
+    </form>
+
+    {% if message %}
+      <p style="color:crimson; text-align:center; margin-top:10px;">{{ message }}</p>
+    {% endif %}
+
+    {% if qr_url %}
+      <h3 style="text-align:center; margin-top:18px;">Scan / Preview</h3>
+      <!-- image served via /temp_qr/<file> which deletes the file on server after reading -->
+      <img class="qr" src="{{ qr_url }}" alt="Generated QR">
+      <p class="small" style="text-align:center; margin-top:10px;">
+        Tip: Right-click (or long-press) to save the image. The image is temporary and removed from server when loaded.
+      </p>
+    {% endif %}
+
+    <p style="text-align:center; margin-top:16px;"><a href="/" class="small">← Back to Home</a></p>
+  </div>
+
+<script>
+  // UI toggles to show/hide fields depending on selected mode
+  function updateUI(){
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    document.getElementById('text_field').style.display = (mode === 'text') ? 'block' : 'none';
+    document.getElementById('number_field').style.display = (mode === 'call') ? 'block' : 'none';
+    document.getElementById('wa_field').style.display = (mode === 'whatsapp') ? 'block' : 'none';
+  }
+  document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener('change', updateUI));
+  updateUI();
+</script>
+</body>
+</html>

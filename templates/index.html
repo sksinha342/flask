@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ Basic Info -->
+  <title>Smart Tools | QR Generator & CSV to PDF Converter</title>
+  <meta name="description" content="Create QR codes, convert CSV or JSON files to PDF, and access smart tools made by SK Sinha — fast, free, and online.">
+  <meta name="keywords" content="QR code generator, CSV to PDF, JSON to PDF, online tools, SK Sinha, free QR tool, PDF maker, PythonAnywhere Flask tools">
+  <meta name="author" content="SK Sinha">
+
+  <!-- ✅ Google Search Console Verification -->
+  <meta name="google-site-verification" content="3-oV4ZMMS3GFQxYrBKTmqlSEWrc2ZcGxjjG_gWa_bxw" />
+
+  <!-- ✅ Open Graph / Social Media Preview -->
+  <meta property="og:title" content="Smart Tools by SK Sinha" />
+  <meta property="og:description" content="Instantly generate QR codes or convert CSV/JSON to PDF using Smart Tools — powered by Flask & PythonAnywhere." />
+  <meta property="og:image" content="{{ url_for('static', filename='logo.png') }}" />
+  <meta property="og:url" content="https://sksinha342.pythonanywhere.com/" />
+  <meta property="og:type" content="website" />
+
+  <!-- ✅ Favicon / Logo -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='logo.png') }}">
+
+  <!-- ✅ Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Welcome To My Site</h1>
+    <p>All available tools of my site</p>
+  </header>
+
+  <main class="grid">
+    {% for name, p in pages.items() %}
+    <div class="card">
+      <img src="{{ p.image }}" alt="{{ p.title }}">
+      <div class="card-body">
+        <h2>{{ p.title }}</h2>
+        <p>{{ p.description }}</p>
+        <a href="/{{ name }}" class="btn">Open Tool</a>
+      </div>
+    </div>
+    {% else %}
+    <p>No pages found.</p>
+    {% endfor %}
+  </main>
+
+  <!-- ✅ Footer -->
+  <style>
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #f1f1f1;
+        border-top: 1px solid #ddd;
+        margin-top: 20px;
+    }
+    .profile-section {
+        margin-bottom: 10px;
+    }
+    .profile-pic {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .info-text {
+        font-size: 8px;
+        font-weight: bold;
+    }
+    .social-section {
+        padding: 9px;
+    }
+    .social-icon {
+        font-size: 20px;
+        margin: 0 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .facebook { color: #1877F2; }
+    .twitter { color: #1DA1F2; }
+    .instagram { color: #C13584; }
+    .youtube { color: #FF0000; }
+    .whatsapp { color: #25D366; }
+    .map { width:38px;margin:2px 2px; }
+    .social-icon:hover { opacity: 0.7; }
+    .copyright-section {
+        padding: 5px;
+        font-size: 10px;
+        color: red;
+    }
+    .footer-links {
+        padding: 3px;
+        display: flex;
+        font-size:12px;
+        justify-content: center;
+        gap: 5px;
+    }
+    .footer-links a {
+        text-decoration: none;
+        color: blue;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .footer-links a:hover {
+        color: #007bff;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <footer>
+    <div class="social-section">
+      <a target="blank" href="https://maps.app.goo.gl/7cGzYsyLUVj4GLmx9" class="social-icon map">
+        <img class="map" src="https://sksinha342.free.nf/_image/map2.png" alt="Map">
+      </a>
+      <br>
+      <a target="blank" href="https://www.facebook.com/profile.php?id=100055694790984&mibextid=ZbWKwL" class="social-icon facebook"><i class="fab fa-facebook"></i></a>
+      <a target="blank" href="https://x.com/SK_Sinha_342?t=H4HZd4RUJaxRZYG1gLVV6w&s=09" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+      <a target="blank" href="https://instagram.com/sk_sinha_342?igshid=MzNlNGNkZWQ4Mg==" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+      <a target="blank" href="https://youtube.com/@sk_sinha342?si=ysOMqkg88DUJpWcH" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+      <a href="https://wa.link/7a60qs" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <div class="copyright-section">
+      <p style='font-size:10px;'>
+        <a href='https://sksinha342.free.nf/' style='color:blue;'>SK Sinha</a> © 2025 All Rights Reserved
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href="https://sksinha342.free.nf/ImForPage/Head-foot/policy.php">🔒 PRIVACY & POLICY</a>
+      <a href="https://sksinha342.free.nf/ImForPage/Head-foot/contact.php">📞 CONTACT US</a>
+      <a href="https://sksinha342.free.nf/ImForPage/Head-foot/about.php">ℹ️ ABOUT</a>
+    </div>
+  </footer>
+</body>
+</html>
